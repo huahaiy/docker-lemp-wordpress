@@ -56,7 +56,7 @@ ENDL
   fi
 
   PORT=${PORT:-"8080"}
-  sed -ri "s/listen 80/listen $PORT/" /etc/nginx/sites-available/default
+  sed -ri "s/listen   80/listen   $PORT/" /etc/nginx/sites-available/default
   sed -ri "s/80 default/$PORT default/" /etc/nginx/sites-available/default
 
   exec "$@"
