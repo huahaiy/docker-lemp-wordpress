@@ -2,7 +2,7 @@
 # Run wordpress on LEMP (Linux, nginx, MySQL and PHP) 
 # 
 #
-# Version     0.1
+# Version     0.2
 #
 
 FROM ubuntu:14.04
@@ -37,20 +37,13 @@ RUN \
 
 ADD ./supervisord.conf /etc/supervisord.conf
 
-ADD https://wordpress.org/latest.tar.gz /usr/share/nginx/latest.tar.gz
-
-RUN \
-  cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz && \
-  rm -rf /usr/share/nginx/www && \
-  mv /usr/share/nginx/wordpress /usr/share/nginx/www && \
-  chown -R www-data:www-data /usr/share/nginx/www
 
 RUN \
   echo "===> clean up" && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
-VOLUME ["/var/lib/mysql", "/usr/share/nginx/www"]
+VOLUME ["/var/lib/mysql", "/usr/share/nginx"]
 
 COPY ./docker-entrypoint.sh /
 

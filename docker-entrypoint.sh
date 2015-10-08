@@ -5,6 +5,13 @@ set -e
 if [ "$1" = '/usr/local/bin/supervisord' ]; then
 
   if [ ! -f /usr/share/nginx/www/wp-config.php ]; then
+
+    curl -o /usr/share/nginx/latest.tar.gz https://wordpress.org/latest.tar.gz 
+    cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz 
+    rm -rf /usr/share/nginx/www 
+    mv /usr/share/nginx/wordpress /usr/share/nginx/www 
+    chown -R www-data:www-data /usr/share/nginx/www
+
     /usr/bin/mysqld_safe &
     sleep 10s
 
